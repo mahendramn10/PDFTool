@@ -3,7 +3,7 @@
  * router, and the sitemap generator all derive from this single source
  * of truth -- add a new tool here and it appears everywhere consistently.
  */
-import type { ToolDefinition } from "@/types";
+import type { ToolDefinition, ToolCategory } from "@/types";
 
 export const TOOLS: ToolDefinition[] = [
   {
