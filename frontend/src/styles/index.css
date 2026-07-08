@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: ThemeContext toggles `.dark` on <html>, so we opt
+   out of Tailwind v4's default OS-preference-only dark: variant. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Design system: "Blueprint & Stamp"
+  ------------------------------------------------------------------
+  PDFTool's job is precise page manipulation -- crop, rotate, extract,
+  merge. The visual language borrows from print production: registration
+  marks (the little crosshairs printers use to align plates), corner crop
+  marks, and rubber-stamp badges. It's a paper/ink palette, not the usual
+  SaaS blue-gradient-on-white.
+*/
+@theme {
+  --color-paper: #f4f5f1;
+  --color-paper-raised: #ffffff;
+  --color-ink: #14171c;
+  --color-ink-soft: #52565e;
+  --color-line: #d8dad2;
+
+  --color-paper-dark: #0d0f13;
+  --color-paper-raised-dark: #14171c;
+  --color-ink-dark: #e9eae4;
+  --color-ink-soft-dark: #9a9ea6;
+  --color-line-dark: #262b33;
+
+  --color-blueprint-50: #eef1ff;
+  --color-blueprint-100: #dbe1ff;
+  --color-blueprint-500: #2647e0;
+  --color-blueprint-600: #1f3bc2;
+  --color-blueprint-700: #1a30a0;
+
+  --color-stamp-500: #c23b32;
+  --color-stamp-600: #a52f28;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+.dark body {
+  background-color: var(--color-paper-dark);
+  color: var(--color-ink-dark);
+}
+
+::selection {
+  background-color: var(--color-blueprint-100);
+}
+.dark ::selection {
+  background-color: color-mix(in srgb, var(--color-blueprint-500) 35%, transparent);
+}
+
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-paper), 0 0 0 4px var(--color-blueprint-500);
+  border-radius: 0.5rem;
+}
+.dark .focus-ring:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-paper-dark), 0 0 0 4px var(--color-blueprint-500);
+}
+
+/* Faint blueprint grid, used ONLY in the hero -- restraint is the point. */
+.bg-blueprint-grid {
+  background-image:
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+}
+.dark .bg-blueprint-grid {
+  background-image:
+    linear-gradient(to right, var(--color-line-dark) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line-dark) 1px, transparent 1px);
+}
+
+/* Registration-mark corner crosshairs -- the page's signature device. */
+.reg-mark {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+.reg-mark::before, .reg-mark::after {
+  content: "";
+  position: absolute;
+  background: var(--color-ink-soft);
+  opacity: 0.35;
+}
+.reg-mark::before {
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+.reg-mark::after {
+  top: 50%;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  transform: translateY(-50%);
+}
+.reg-mark-tl { top: 16px; left: 16px; }
+.reg-mark-tr { top: 16px; right: 16px; }
+.reg-mark-bl { bottom: 16px; left: 16px; }
+.reg-mark-br { bottom: 16px; right: 16px; }
+
+/* Scrollbar, kept quiet */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-line);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background-color: var(--color-line-dark);
+}

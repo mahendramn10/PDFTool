@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: pdftool-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: starter
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: MONGO_URI
+        sync: false
+      - key: MONGO_DB_NAME
+        value: pdftool
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: MAX_UPLOAD_SIZE_MB
+        value: "50"
