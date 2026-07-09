@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pdftool.app/sitemap.xml
+Sitemap: https://pdf-tool-zeta-seven.vercel.app/sitemap.xml

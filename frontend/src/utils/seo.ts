@@ -1,7 +1,7 @@
 /** Small helpers for building consistent JSON-LD structured data across tool pages. */
 import type { ToolDefinition } from "@/types";
 
-export const SITE_URL = "https://pdftool.app";
+export const SITE_URL = "https://pdf-tool-zeta-seven.vercel.app";
 export const SITE_NAME = "PDFTool";
 
 export function buildToolJsonLd(tool: ToolDefinition) {
